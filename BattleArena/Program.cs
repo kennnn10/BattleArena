@@ -1,11 +1,12 @@
-﻿using BattleArena.Warriors;
-using BattleArena.Warriors.Characters;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using BattleArena.Enums;
+using BattleArena.Warriors;
+using BattleArena.Warriors.Characters;
 
 namespace BattleArena
 {
@@ -13,25 +14,17 @@ namespace BattleArena
     {
         static void Main(string[] args)
         {
-            var kerki = new kerki(100, 30, 3);
-            var jbsuarez = new jbsuarez(200, 15, 10);
+            var adili = new adili(100, 30, 25, 10, TeamType.A);
+            var jbsuarez = new jbsuarez(200, 15, 10, 30, TeamType.B);
+            var kerki = new kerki(150, 20, 15, 10, TeamType.A);
+            var awut = new awut(200, 15, 10, 30, TeamType.B);
 
-            kerki.DisplayStatus();
-            jbsuarez.DisplayStatus();
+            BattleArena.AddWarrior(adili);
+            BattleArena.AddWarrior(jbsuarez);
+            BattleArena.AddWarrior(kerki);
+            BattleArena.AddWarrior(awut);
 
-            while (kerki.IsAlive && jbsuarez.IsAlive)
-            {
-                Console.WriteLine("\n\n=================================================");
-                kerki.Attack(jbsuarez);
-                jbsuarez.DisplayStatus();
-                Console.WriteLine("-------------------------------------------------");
-                Thread.Sleep(2000);
-                jbsuarez.Attack(kerki);
-                kerki.DisplayStatus();
-                Thread.Sleep(2000);
-            }
-
-            Console.ReadKey();
+            BattleArena.StartBattle();
         }
     }
 }

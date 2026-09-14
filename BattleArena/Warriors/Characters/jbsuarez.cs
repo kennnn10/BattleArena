@@ -1,43 +1,55 @@
-﻿using System;
+﻿using BattleArena.Abilities;
+using BattleArena.Combat;
+using BattleArena.Enums;
+using System;
 using System.Threading;
-using System.Threading.Tasks;
 
-namespace BattleArena.Warriors
+namespace BattleArena.Warriors.Characters
 {
-    public class jbsuarez : Warrior
+    public class jbsuarez : Warrior, IDefender
     {
-        public int Libag { get; private set; }
-        public jbsuarez(int health, int attackPower, int libag)
-            : base("jbsuarez", health, attackPower, WarriorType.Tank)
+        public int Shield { get; private set; }
+
+        public jbsuarez(int health, int attackPower, int speed, int shield, TeamType teamType)
+            : base("jbsuarez", health, attackPower, speed, WarriorType.Tank, teamType)
         {
-            Libag = libag;
+            Shield = shield;
         }
 
         public override void Attack(Warrior target)
         {
-
-            var dmginfo = new DamageInfo(AttackPower, "Sipa", _hasCriticalChance);
+            var dmginfo = new DamageInfo(AttackPower, "Ngalngal", HasCriticalChance, this);
             TakeDamage(dmginfo);
 
-
-
-            Console.WriteLine($"\t-> {Name}: iipitin kita ngani!! {target.Name}!");
+            Console.WriteLine($"->{Name}: iipitin ka nga ni!! {target.Name}!");
 
             Thread.Sleep(1000);
-            Console.WriteLine($"\t-> {target.Name}: engkkk engot");
-
+            Console.WriteLine($"->{target.Name}: engkk engot {Name}!");
 
             Thread.Sleep(1000);
             if (target.IsAlive)
-                Console.WriteLine($"\t-> {target.Name}: dito kita iipitin!  {target.Name}");
+                Console.WriteLine($"->{target.Name}: dito kita iipitin {Name}");
         }
 
         protected override void TakeDamage(DamageInfo damage)
         {
-            var newActualDamage = damage.TotalAmountDamage - Libag;
-            var newDmginfo = new DamageInfo(newActualDamage, damage.AttackType, damage.IsCritical);
-            base.TakeDamage(damage);
-        }
+            var newActualDamage = damage.TotalAmountDamage - Shield;
 
+            var blockChance = _random.Next(0, 100);
+            var isBlocked = blockChance < 50;
+            _damageTaken = damage;
+
+            if (isBlocked) Block();
+            else
+            {
+                var newDmginfo = new DamageInfo(newActualDamage, damage.AttackType, damage.IsCritical, damage.From);
+                base.TakeDamage(newDmginfo);
+            }
+        }
+        public void Block()
+        {
+            Console.WriteLine($"Hahaha! Blocked {_damageTaken.TotalAmountDamage} damage from {_damageTaken.From.Name}! ");
+        }
     }
+
 }
