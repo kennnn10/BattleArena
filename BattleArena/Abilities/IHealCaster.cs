@@ -11,7 +11,6 @@ namespace BattleArena.Abilities
     public interface IHealCaster
     {
         TeamType TeamType { get; }
-
-        void HealTeamMates(List<Warrior> teamMates);
+        void HealTeamMates(List<Warrior> Teammates);
     }
 }

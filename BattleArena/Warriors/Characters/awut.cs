@@ -1,34 +1,48 @@
 ﻿using BattleArena.Combat;
 using BattleArena.Enums;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 
-namespace BattleArena.Warriors.Characters
+namespace BattleArena.Warriors
 {
+
     public class awut : Warrior
     {
-        public int BayoDamage { get; private set; }
-        public awut(int health, int attackPower, int speed, int bayoDamage, TeamType teamType)
-            : base("awut", health, attackPower, speed, WarriorType.Fighter, teamType)
+        public int PunchDamage { get; private set; }
+        public awut(int health, int attackPower, int speed, int punchDamage, TeamType teamType)
+           : base("awut", health, attackPower, speed, WarriorType.Fighter, teamType)
         {
-            BayoDamage = bayoDamage;
-            attackPower += BayoDamage;
+            PunchDamage = punchDamage;
+            attackPower += punchDamage;
         }
+
+        public awut(string name, int health, int attackPower)
+            : base(name, health, attackPower, WarriorType.Fighter, TeamType.A)
+        {
+            PunchDamage = PunchDamage;
+        }
+
 
         public override void Attack(Warrior target)
         {
-            var dmginfo = new DamageInfo(AttackPower, "Bayo", HasCriticalChance, this);
+            var dmginfo = new DamageInfo(AttackPower, "Sapak", HasCriticalChance, this);
             TakeDamage(dmginfo);
 
-            Console.WriteLine($"->{Name}: Babayuhin kita {target.Name}!");
-
+            Console.WriteLine($"\t->{Name}: ano ne? {target.Name}");
             Thread.Sleep(1000);
-            Console.WriteLine($"->{target.Name}: Aray ko po!");
 
+            Console.WriteLine($"\t->{target.Name}: ray mo proman");
             Thread.Sleep(1000);
+
             if (target.IsAlive)
-                Console.WriteLine($"->{target.Name}: grabe ka ne {target.Name}");
-        }
-    }
+                Console.WriteLine($"\t->{target.Name}: {target.Name} birada! {target.Name}");
 
+        }
+
+
+    }
 }

@@ -15,20 +15,17 @@ namespace BattleArena.Warriors.Characters
         {
             Shield = shield;
         }
-
         public override void Attack(Warrior target)
         {
-            var dmginfo = new DamageInfo(AttackPower, "Ngalngal", HasCriticalChance, this);
-            TakeDamage(dmginfo);
-
-            Console.WriteLine($"->{Name}: iipitin ka nga ni!! {target.Name}!");
+            var dmginfo = new DamageInfo(AttackPower, "Sipa", HasCriticalChance, this);
+            Console.WriteLine($"\t->{Name}: iipitin kita ngani!! {target.Name}");
 
             Thread.Sleep(1000);
-            Console.WriteLine($"->{target.Name}: engkk engot {Name}!");
+            Console.WriteLine($"\t->{target.Name}: engkk engott");
 
             Thread.Sleep(1000);
             if (target.IsAlive)
-                Console.WriteLine($"->{target.Name}: dito kita iipitin {Name}");
+                Console.WriteLine($"\t->{target.Name}: {target.Name} dito kita iipitin {target.Name}");
         }
 
         protected override void TakeDamage(DamageInfo damage)
@@ -42,14 +39,17 @@ namespace BattleArena.Warriors.Characters
             if (isBlocked) Block();
             else
             {
-                var newDmginfo = new DamageInfo(newActualDamage, damage.AttackType, damage.IsCritical, damage.From);
-                base.TakeDamage(newDmginfo);
+
+                var newDmgInfo = new DamageInfo(newActualDamage, damage.AttackType, damage.IsCritical, damage.From);
+                base.TakeDamage(newDmgInfo);
             }
         }
+
         public void Block()
         {
-            Console.WriteLine($"Hahaha! Blocked {_damageTaken.TotalAmountDamage} damage from {_damageTaken.From.Name}! ");
+            Console.WriteLine($"Uyyyy Dodge Blocked {_damageTaken.TotalAmountDamage} damage from {_damageTaken.From.Name}!");
         }
-    }
 
+
+    }
 }

@@ -12,6 +12,8 @@ namespace BattleArena.Warriors
 
         protected DamageInfo _damageTaken;
         protected Random _random = new Random();
+        private string v;
+        private WarriorType magery;
 
         public string Name { get; private set; }
         public int Health { get; private set; }
@@ -53,6 +55,19 @@ namespace BattleArena.Warriors
             TeamType = teamType;
         }
 
+        protected Warrior()
+        {
+        }
+
+        protected Warrior(string v, int health, int attackPower, WarriorType magery, TeamType teamType)
+        {
+            this.v = v;
+            Health = health;
+            AttackPower = attackPower;
+            this.magery = magery;
+            TeamType = teamType;
+        }
+
         protected virtual void TakeDamage(DamageInfo damage)
         {
             _damageTaken = damage;
@@ -81,6 +96,11 @@ namespace BattleArena.Warriors
                 Health += amount;
                 Console.WriteLine($"->{Name}: Received healing from {healer.Name}! Health is now {Health}");
             }
+        }
+
+        public void ReceiveHeal(int amount, Warrior healer)
+        {
+            throw new NotImplementedException();
         }
     }
 }

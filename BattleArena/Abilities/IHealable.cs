@@ -8,10 +8,9 @@ using System.Threading.Tasks;
 
 namespace BattleArena.Abilities
 {
-    public interface IHealable
+    internal interface IHealable
     {
         TeamType TeamType { get; }
-
-        void ReceiveHealing(int amount, Warrior healer);
+        void ReceiveHeal(int amount, Warrior healer);
     }
 }
