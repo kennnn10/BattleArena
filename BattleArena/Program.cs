@@ -1,34 +1,34 @@
 ﻿using BattleArena.Warriors;
+using BattleArena.Warriors.Characters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace BattleArena
 {
-
     internal class Program
     {
-        static void Main(string[] args) 
+        static void Main(string[] args)
         {
-            int round = 1;
-            var adili = new Marksman("adili", 100, 30);
-            var kerki = new Mage("kerki", 200, 15);
-            var Jjbsuarez = new Tank("jbsuarez", 150, 30);
+            var kerki = new kerki(100, 30, 3);
+            var jbsuarez = new jbsuarez(200, 15, 10);
 
-            adili.DisplayStats();
-            kerki.DisplayStats();
-            Jjbsuarez.DisplayStats();
+            kerki.DisplayStatus();
+            jbsuarez.DisplayStatus();
 
-            while (adili.IsAlive && kerki.IsAlive && Jjbsuarez.IsAlive)
+            while (kerki.IsAlive && jbsuarez.IsAlive)
             {
-
-                adili.Attack(kerki);
-                Console.WriteLine("----------------------------------------------");
-                Jjbsuarez.Attack(adili);
-                Console.WriteLine("----------------------------------------------");
-                round++;
+                Console.WriteLine("\n\n=================================================");
+                kerki.Attack(jbsuarez);
+                jbsuarez.DisplayStatus();
+                Console.WriteLine("-------------------------------------------------");
+                Thread.Sleep(2000);
+                jbsuarez.Attack(kerki);
+                kerki.DisplayStatus();
+                Thread.Sleep(2000);
             }
 
             Console.ReadKey();
